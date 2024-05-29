@@ -1,17 +1,17 @@
 import streamlit as st
+from st_supabase_connection import SupabaseConnection, execute_query
 
-st.title('Customizing the theme of Streamlit apps')
+# Initialize connection.
+conn = st.connection(
+    name="supabase",
+    type=SupabaseConnection,
+    ttl="10m"
+)
 
-st.write('Contents of the `.streamlit/config.toml` file of this app')
+# Perform query.
+# rows = conn.query("*", table="players").execute()
+rows = execute_query(conn.table("players").select("*"), ttl=0)
 
-st.code("""
-[theme]
-primaryColor="#F39C12"
-backgroundColor="#2E86C1"
-secondaryBackgroundColor="#AED6F1"
-textColor="#FFFFFF"
-font="monospace"
-""")
-
-number = st.sidebar.slider('Select a number:', 0, 10, 5)
-st.write('Selected number from slider widget is:', number)
+# Print results.
+for row in rows.data:
+    st.write(f"{row['first']} _ :{row['last']}:")
