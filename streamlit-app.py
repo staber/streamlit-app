@@ -14,5 +14,5 @@ rows = execute_query(conn.table("players").select("*"), ttl=0)
 
 # Print results.
 for row in rows.data:
-    st.image({row['avatar']})
+    # st.image({row['avatar']}) # images can't be gifs
     st.write(f"{row['first']} {row['last']} : {row['shots']}")
