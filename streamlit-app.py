@@ -10,7 +10,7 @@ conn = st.connection(
 
 # Perform query.
 # rows = conn.query("*", table="players").execute()
-rows = execute_query(conn.table("players").select("*"), ttl=0)
+rows = execute_query(conn.table("players").select("*").order("shots", desc=True), ttl=0)
 
 # Print results.
 for row in rows.data:
