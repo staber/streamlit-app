@@ -14,4 +14,4 @@ rows = execute_query(conn.table("players").select("*"), ttl=0)
 
 # Print results.
 for row in rows.data:
-    st.write(f"{row['first']} _ :{row['last']}:")
+    st.write(f"{row['first']} {row['last']} : {row['shots']}")
