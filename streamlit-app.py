@@ -15,5 +15,5 @@ rows = execute_query(conn.table("players").select("*").order("shots", desc=True)
 # Print results.
 for row in rows.data:
     # st.image({row['avatar']}) # images can't be gifs
-    st.markdown(f"[![Click me]({row['avatar']})](https://streamlit.io)")
+    st.markdown(f"[![Click me]({row['avatar']} =64x64)](https://streamlit.io)")
     st.write(f"{row['first']} {row['last']} : {row['shots']}")
