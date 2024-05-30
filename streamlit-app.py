@@ -9,11 +9,11 @@ conn = st.connection(
 )
 
 # Perform query.
-# rows = conn.query("*", table="players").execute()
 rows = execute_query(conn.table("players").select("*").order("shots", desc=True), ttl=0)
 
 # Print results.
 for row in rows.data:
     # st.image({row['avatar']}) # images can't be gifs
-    st.markdown(f"[![Click me]({row['avatar']} =64x64)](https://streamlit.io)")
+    st.image("https://storage.googleapis.com/ts_assets_prod-roster_full_photos/106848656/original/b2d721cd-de4b-4a57-8536-f9aa2ed8cd18.jpg")
+    # st.markdown(f"[![Click me]({row['avatar']})](https://streamlit.io)")
     st.write(f"{row['first']} {row['last']} : {row['shots']}")
