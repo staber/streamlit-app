@@ -14,9 +14,12 @@ rows = execute_query(conn.table("players").select("*").order("shots", desc=True)
 tab1, tab2 = st.tabs(["🏒 Shots", "🏃 Running"])
 
 with tab1:
+
     # Print results.
     for row in rows.data:
+        col1, col2, col3 = st.columns([0.2, 0.6, 0.2])
         # st.image({row['avatar']}) # images can't be gifs
-        st.image("https://storage.googleapis.com/ts_assets_prod-roster_full_photos/106848656/original/b2d721cd-de4b-4a57-8536-f9aa2ed8cd18.jpg", width=64)
+        col1.image("https://storage.googleapis.com/ts_assets_prod-roster_full_photos/106848656/original/b2d721cd-de4b-4a57-8536-f9aa2ed8cd18.jpg", width=64)
         # st.markdown(f"[![Click me]({row['avatar']})](https://streamlit.io)")
-        st.write(f"{row['first']} {row['last']} : {row['shots']}")
+        col2.write(f"{row['first']} {row['last']}")
+        col3.write(f"{row['shots']}")
