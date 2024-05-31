@@ -8,6 +8,16 @@ conn = st.connection(
     ttl="10m"
 )
 
+# Remove Fullscreen Image Button
+hide_img_fs = '''
+<style>
+button[title="View fullscreen"]{
+    visibility: hidden;}
+</style>
+'''
+
+st.markdown(hide_img_fs, unsafe_allow_html=True)
+
 # Perform query.
 rows = execute_query(conn.table("players").select("*").order("shots", desc=True), ttl=0)
 
