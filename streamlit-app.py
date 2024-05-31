@@ -37,12 +37,13 @@ with tab1:
             col1.image("https://storage.googleapis.com/ts_assets_prod-roster_full_photos/106848656/original/b2d721cd-de4b-4a57-8536-f9aa2ed8cd18.jpg", width=64, clamp=True)
             col2.write(f"{row['first']} {row['last']}")
             col3.write(f"{row['shots']}")
-            with st.form(key="id", clear_on_submit=True, border=False):
-              st.write('Add Shots')
-              st.number_input()
-              submitted = st.form_submit_button("Submit")
-            if submitted:
-                add_shots(id)
+            with st.form('Form', clear_on_submit=True, border=False):
+                st.write('Add Shots')
+                shots = st.number_input("Shots", value=0)
+                if st.form_submit_button('Submit Shots',
+                        type="primary",
+                        use_container_width=True):
+                    add_shots(shots)
         
         # st.image({row['avatar']}) # images can't be gifs
         # st.markdown(f"[![Click me]({row['avatar']})](https://streamlit.io)")
