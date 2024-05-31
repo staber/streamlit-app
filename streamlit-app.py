@@ -37,8 +37,7 @@ with tab1:
             # col2.write(f"{row['first']} {row['last']}")
             # col3.write(f"{row['shots']}")
             with st.form(f"{row['first']}_{row['last']}", clear_on_submit=True, border=False):
-                st.write('Add Shots')
-                shots = st.number_input("Shots", value=0)
+                shots = st.number_input("Add Shots", value=0)
                 if st.form_submit_button('Submit Shots',
                         type="primary",
                         use_container_width=True):
