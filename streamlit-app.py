@@ -37,4 +37,6 @@ with tab1:
         
         # st.image({row['avatar']}) # images can't be gifs
         # st.markdown(f"[![Click me]({row['avatar']})](https://streamlit.io)")
-        
+
+with tab2:
+    st.header("Mile Time Leaderboard")
