@@ -1,8 +1,8 @@
 import streamlit as st
 from st_supabase_connection import SupabaseConnection, execute_query
 
-def add_shots(user_id):
-   st.toast("item clicked: " + str(user_id))
+def add_shots(id, name, user_id):
+   st.toast(str(id) + ": Add " + str(user_id) + " for " + name)
 
 # Initialize connection.
 conn = st.connection(
@@ -41,7 +41,7 @@ with tab1:
                 if st.form_submit_button('Submit Shots',
                         type="primary",
                         use_container_width=True):
-                    add_shots(shots)
+                    add_shots({row['id']},{row['last']},shots)
         
         # st.image({row['avatar']}) # images can't be gifs
         # st.markdown(f"[![Click me]({row['avatar']})](https://streamlit.io)")
