@@ -32,11 +32,10 @@ with tab1:
     # Print results.
     for row in rows.data:
         with st.expander(f"{row['first']} {row['last']} : {row['shots']}", expanded=False):
-            col1, col2, col3 = st.columns([0.2, 0.5, 0.3])
-            # col1.write("col1")
-            col1.image("https://storage.googleapis.com/ts_assets_prod-roster_full_photos/106848656/original/b2d721cd-de4b-4a57-8536-f9aa2ed8cd18.jpg", width=64, clamp=True)
-            col2.write(f"{row['first']} {row['last']}")
-            col3.write(f"{row['shots']}")
+            # col1, col2, col3 = st.columns([0.2, 0.5, 0.3])
+            # col1.image("https://storage.googleapis.com/ts_assets_prod-roster_full_photos/106848656/original/b2d721cd-de4b-4a57-8536-f9aa2ed8cd18.jpg", width=64, clamp=True)
+            # col2.write(f"{row['first']} {row['last']}")
+            # col3.write(f"{row['shots']}")
             with st.form(f"{row['first']}_{row['last']}", clear_on_submit=True, border=False):
                 st.write('Add Shots')
                 shots = st.number_input("Shots", value=0)
