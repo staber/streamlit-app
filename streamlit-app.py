@@ -2,7 +2,7 @@ import streamlit as st
 from st_supabase_connection import SupabaseConnection, execute_query
 
 def add_shots(id, name, shots, date):
-   st.toast(str(id) + ": Add " + str(shots) + " for " + name + " on " + date)
+   st.toast(str(id) + ": Add " + str(shots) + " for " + name + " on " + str(date))
 
 # Initialize connection.
 conn = st.connection(
