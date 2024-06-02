@@ -1,8 +1,8 @@
 import streamlit as st
 from st_supabase_connection import SupabaseConnection, execute_query
 
-def add_shots(id, name, user_id):
-   st.toast(str(id) + ": Add " + str(user_id) + " for " + name)
+def add_shots(id, name, shots, date):
+   st.toast(str(id) + ": Add " + str(shots) + " for " + name + " on " + date)
 
 # Initialize connection.
 conn = st.connection(
@@ -37,11 +37,18 @@ with tab1:
             # col2.write(f"{row['first']} {row['last']}")
             # col3.write(f"{row['shots']}")
             with st.form(f"{row['first']}_{row['last']}", clear_on_submit=True, border=False):
-                shots = st.number_input("Add Shots", value=0)
+                col1, col2 = st.columns([0.5,0.5])
+                with col1:
+                    shots = st.number_input("Add Shots", value=0)
+                with col2:
+                    date = st.date_input("Date")
                 if st.form_submit_button('Submit Shots',
                         type="primary",
                         use_container_width=True):
-                    add_shots({row['id']},{row['last']},shots)
+                    if shots > 0:
+                        add_shots({row['id']},{row['last']},shots,date)
+                    else:
+                        st.toast("Enter a number greater than 0")
         
         # st.image({row['avatar']}) # images can't be gifs
         # st.markdown(f"[![Click me]({row['avatar']})](https://streamlit.io)")
