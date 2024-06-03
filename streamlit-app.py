@@ -17,6 +17,7 @@ def update_total_shots(id, player):
         shots = shots + row['shots']
     st.toast(player + " has " + str(shots) + " shots total.")
     execute_query(conn.table("players").update({"shots": shots}, count="None").eq("id", id), ttl=0)
+    st.rerun()
 
 # Initialize connection.
 conn = st.connection(
