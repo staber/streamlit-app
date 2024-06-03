@@ -118,7 +118,7 @@ recover = '''
 shooting_leaderboard = execute_query(conn.table("players").select("*").order("shots", desc=True), ttl=0)
 
 # Setup Main Page
-tab1, tab2, tab3 = st.tabs(["📅 Schedule", "🏒 Shots", "🏃 Running"])
+tab1, tab2, tab3, tab4 = st.tabs(["📅 Schedule", "🏒 Shots", "🏃 Running", "Data"])
 
 # Schedule Tab
 with tab1:
@@ -201,3 +201,12 @@ with tab3:
                             add_time(row['id'], f"{row['first']}_{row['last']}", time, date)
                         else:
                             st.toast("Enter a number greater than 0")
+
+# Player Analysis
+with tab4:
+
+    player = "Carter_Staber"
+    player_shot_table = execute_query(conn.table(player).select("*").gt("shots", 0), ttl=0)
+    player_time_table = execute_query(conn.table(player).select("*").gt("mile_time", 0), ttl=0)
+
+    st.dataframe(player_shot_table, use_container_width=True)
