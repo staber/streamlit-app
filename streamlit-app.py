@@ -36,18 +36,7 @@ button[title="View fullscreen"]{
 
 st.markdown(hide_img_fs, unsafe_allow_html=True)
 
-# Perform query.
-shooting_leaderboard = execute_query(conn.table("players").select("*").order("shots", desc=True), ttl=0)
-
-# Setup Main Page
-tab1, tab2, tab3 = st.tabs(["📅 Schedule", "🏒 Shots", "🏃 Running"])
-
-# Schedule Tab
-with tab1:
-    st.header("Daily Schedule")
-
-    with st.expander("Monday: (Strength Training + Hockey Shots)", expanded=False):
-        st.markdown('''
+strength_training = '''
             **Warm-up:**
             - 5-10 minutes of dynamic stretching or light jogging.
 
@@ -62,7 +51,71 @@ with tab1:
             - Break down the shots into sets (e.g., 5 sets of 20-30 shots) with rest in between.
 
             **Cool-down:**
-            - 5-10 minutes of static stretching focusing on the muscles used.''', unsafe_allow_html=False)
+            - 5-10 minutes of static stretching focusing on the muscles used.'''
+
+running = '''
+            **Warm-up:**
+            - 5-10 minutes of dynamic stretching or light jogging.
+
+            **Running:**
+            - Interval Training: Alternate between running and walking.
+                - Week 1-4: 1 minute running, 1 minute walking for 20 minutes.
+                - Week 5-8: 2 minutes running, 1 minute walking for 25 minutes.
+                - Week 9-12: 3 minutes running, 1 minute walking for 30 minutes.
+
+            **Hockey Shots:**
+            - 100-150 shots on goal, focusing on different types of shots (wrist shots, slap shots, backhands).
+            - Break down the shots into sets (e.g., 5 sets of 20-30 shots) with rest in between.
+
+            **Cool-down:**
+            - 5-10 minutes of static stretching focusing on the muscles used.'''
+
+long_run = '''
+            **Warm-up:**
+            - 5-10 minutes of dynamic stretching or light jogging.
+
+            **Long Run:**
+            - Gradually increase the distance each week to build endurance.
+                - Week 1-4: 1.5 miles at a comfortable pace.
+                - Week 5-8: 2 miles at a comfortable pace.
+                - Week 9-12: 3 miles aiming for under 30 minutes.
+
+            **Hockey Shots:**
+            - 100-150 shots on goal, focusing on different types of shots (wrist shots, slap shots, backhands).
+            - Break down the shots into sets (e.g., 5 sets of 20-30 shots) with rest in between.
+
+            **Cool-down:**
+            - 5-10 minutes of static stretching focusing on the muscles used.'''
+
+recover = '''
+            - Focus on rest and recovery to allow the body to heal and grow.
+            - Encourage light activities like walking or yoga.
+            - Spend time on flexibility and mobility exercises, such as foam rolling and static stretching.'''
+
+# Perform query.
+shooting_leaderboard = execute_query(conn.table("players").select("*").order("shots", desc=True), ttl=0)
+
+# Setup Main Page
+tab1, tab2, tab3 = st.tabs(["📅 Schedule", "🏒 Shots", "🏃 Running"])
+
+# Schedule Tab
+with tab1:
+    st.header("Daily Schedule")
+
+    with st.expander("Monday: (Strength Training + Hockey Shots)", expanded=False):
+        st.markdown(strength_training, unsafe_allow_html=False)
+    with st.expander("Tuesday: (Running + Hockey Shots)", expanded=False):
+        st.markdown(running, unsafe_allow_html=False)
+    with st.expander("Wednesday: (Strength Training + Hockey Shots)", expanded=False):
+        st.markdown(strength_training, unsafe_allow_html=False)
+    with st.expander("Thursday: (Running + Hockey Shots)", expanded=False):
+        st.markdown(running, unsafe_allow_html=False)
+    with st.expander("Friday: (Strength Training + Hockey Shots)", expanded=False):
+        st.markdown(strength_training, unsafe_allow_html=False)
+    with st.expander("Saturday: (Long Run + Hockey Shots)", expanded=False):
+        st.markdown(long_run, unsafe_allow_html=False)
+    with st.expander("Sunday: (Rest and Recovery)", expanded=False):
+        st.markdown(recover, unsafe_allow_html=False)
 
 # Shooting Leaderboard Tab
 with tab2:
