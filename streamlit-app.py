@@ -124,13 +124,9 @@ with tab1:
 with tab2:
     st.header("Shooting Leaderboard")
 
-    # Print results.
+    # display shooting_leaderboard table as expandable items
     for row in shooting_leaderboard.data:
         with st.expander(f"{row['first']} {row['last']} : {row['shots']}", expanded=False):
-            # col1, col2, col3 = st.columns([0.2, 0.5, 0.3])
-            # col1.image("https://storage.googleapis.com/ts_assets_prod-roster_full_photos/106848656/original/b2d721cd-de4b-4a57-8536-f9aa2ed8cd18.jpg", width=64, clamp=True)
-            # col2.write(f"{row['first']} {row['last']}")
-            # col3.write(f"{row['shots']}")
             with st.form(f"{row['first']}_{row['last']}", clear_on_submit=True, border=False):
                 col1, col2 = st.columns([0.5,0.5])
                 with col1:
@@ -144,9 +140,6 @@ with tab2:
                         add_shots(row['id'], f"{row['first']}_{row['last']}", shots, date)
                     else:
                         st.toast("Enter a number greater than 0")
-        
-        # st.image({row['avatar']}) # images can't be gifs
-        # st.markdown(f"[![Click me]({row['avatar']})](https://streamlit.io)")
 
 # Running Leaderboard Tab
 with tab3:
