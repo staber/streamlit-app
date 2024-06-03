@@ -205,12 +205,19 @@ with tab3:
 # Player Analysis
 with tab4:
 
-    player = "Carter_Staber"
-    player_shot_table = execute_query(conn.table(player).select("*").gt("shots", 0), ttl=0)
-    player_time_table = execute_query(conn.table(player).select("*").gt("mile_time", 0), ttl=0)
-
-    # st.dataframe(player_shot_table.data, use_container_width=True)
+    player = st.selectbox(
+        "Select a player to view their stats",
+        ("Carter_Staber", "Ethan_LaPere"),
+        index=None,
+        placeholder="Select a player...",
+        )
     
-    st.bar_chart(data=player_shot_table.data, x="activity_date", y="shots", color=None, width=None, height=None, use_container_width=True)
+    if player != None:
+        player_shot_table = execute_query(conn.table(player).select("*").gt("shots", 0), ttl=0)
+        player_time_table = execute_query(conn.table(player).select("*").gt("mile_time", 0), ttl=0)
 
-    st.line_chart(data=player_time_table.data, x="activity_date", y="mile_time", color=None, width=None, height=None, use_container_width=True)
+        # st.dataframe(player_shot_table.data, use_container_width=True)
+        
+        st.bar_chart(data=player_shot_table.data, x="activity_date", y="shots", color=None, width=None, height=None, use_container_width=True)
+
+        st.line_chart(data=player_time_table.data, x="activity_date", y="mile_time", color=None, width=None, height=None, use_container_width=True)
