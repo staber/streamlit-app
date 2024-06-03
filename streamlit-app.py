@@ -146,7 +146,7 @@ with tab2:
     # display shooting_leaderboard table as expandable items
     for row in shooting_leaderboard.data:
         with st.expander(f"{row['first']} {row['last']} : {row['shots']}", expanded=False):
-            with st.form(f"{row['first']}_{row['last']}", clear_on_submit=True, border=False):
+            with st.form(f"{row['first']}_{row['last']}_shots", clear_on_submit=True, border=False):
                 col1, col2 = st.columns([0.5,0.5])
                 with col1:
                     shots = st.number_input("Add Shots", value=0)
@@ -169,7 +169,7 @@ with tab3:
     # display running_leaderboard table as expandable items
     for row in running_leaderboard.data:
         with st.expander(f"{row['first']} {row['last']} : {row['mile_time']}", expanded=False):
-            with st.form(f"{row['first']}_{row['last']}", clear_on_submit=True, border=False):
+            with st.form(f"{row['first']}_{row['last']}_time", clear_on_submit=True, border=False):
                 col1, col2 = st.columns([0.5,0.5])
                 with col1:
                     time = st.number_input("Mile Time (minutes)", value=0)
