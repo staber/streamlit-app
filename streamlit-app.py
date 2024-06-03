@@ -116,7 +116,6 @@ recover = '''
 
 # Perform query.
 shooting_leaderboard = execute_query(conn.table("players").select("*").order("shots", desc=True), ttl=0)
-running_leaderboard = execute_query(conn.table("players").select("*").order("mile_time", desc=False), ttl=0)
 
 # Setup Main Page
 tab1, tab2, tab3 = st.tabs(["📅 Schedule", "🏒 Shots", "🏃 Running"])
@@ -164,6 +163,8 @@ with tab2:
 # Running Leaderboard Tab
 with tab3:
     st.header("Mile Time Leaderboard")
+
+    running_leaderboard = execute_query(conn.table("players").select("*").order("mile_time", desc=False), ttl=0)
 
     # display running_leaderboard table as expandable items
     for row in running_leaderboard.data:
