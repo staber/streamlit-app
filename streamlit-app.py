@@ -169,7 +169,7 @@ with tab3:
     # display running_leaderboard table as expandable items with positive time's entered
     for row in running_leaderboard.data:
         if row['mile_time'] > 0:
-            with st.expander(f"{row['first']} {row['last']} : {row['mile_time']} minutes", expanded=False):
+            with st.expander(f"{row['first']} {row['last']} : {row['mile_time']} Minutes", expanded=False):
                 with st.form(f"{row['first']}_{row['last']}_time", clear_on_submit=True, border=False):
                     col1, col2 = st.columns([0.5,0.5])
                     with col1:
