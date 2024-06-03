@@ -172,7 +172,7 @@ with tab3:
             with st.form(f"{row['first']}_{row['last']}_time", clear_on_submit=True, border=False):
                 col1, col2 = st.columns([0.5,0.5])
                 with col1:
-                    time = st.number_input("Mile Time (minutes)", value=0)
+                    time = st.number_input("Mile Time (minutes)", value=0.00)
                 with col2:
                     date = st.date_input("Date")
                 if st.form_submit_button('Submit Time',
