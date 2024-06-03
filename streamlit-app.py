@@ -221,5 +221,7 @@ with tab4:
         # st.dataframe(player_shot_table.data, use_container_width=True)
         
         st.bar_chart(data=player_shot_table.data, x="activity_date", y="shots", color=None, width=None, height=None, use_container_width=True)
-
+        
+        st.divider()
+        
         st.line_chart(data=player_time_table.data, x="activity_date", y="mile_time", color=None, width=None, height=None, use_container_width=True)
