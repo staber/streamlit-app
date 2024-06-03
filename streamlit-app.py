@@ -1,6 +1,9 @@
 import streamlit as st
 from st_supabase_connection import SupabaseConnection, execute_query
 
+st.set_page_config(page_title="LCFH 2011", page_icon="https://raw.githubusercontent.com/staber/Supabase-Leaderboard/master/public/android-chrome-512x512.png",
+                    layout="centered", initial_sidebar_state="auto", menu_items=None)
+
 # Add row to player table
 def add_shots(id, name, shots, date):
    st.toast(str(id) + ": Add " + str(shots) + " shots for " + str(name) + " on " + date.strftime("%Y-%m-%d"))
