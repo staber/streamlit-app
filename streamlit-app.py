@@ -166,19 +166,38 @@ with tab3:
 
     running_leaderboard = execute_query(conn.table("players").select("*").order("mile_time", desc=False), ttl=0)
 
-    # display running_leaderboard table as expandable items
+    # display running_leaderboard table as expandable items with positive time's entered
     for row in running_leaderboard.data:
-        with st.expander(f"{row['first']} {row['last']} : {row['mile_time']}", expanded=False):
-            with st.form(f"{row['first']}_{row['last']}_time", clear_on_submit=True, border=False):
-                col1, col2 = st.columns([0.5,0.5])
-                with col1:
-                    time = st.number_input("Mile Time (minutes)", value=0.00)
-                with col2:
-                    date = st.date_input("Date")
-                if st.form_submit_button('Submit Time',
-                        type="primary",
-                        use_container_width=True):
-                    if time > 0:
-                        add_time(row['id'], f"{row['first']}_{row['last']}", time, date)
-                    else:
-                        st.toast("Enter a number greater than 0")
+        if row['mile_time'] > 0:
+            with st.expander(f"{row['first']} {row['last']} : {row['mile_time']}", expanded=False):
+                with st.form(f"{row['first']}_{row['last']}_time", clear_on_submit=True, border=False):
+                    col1, col2 = st.columns([0.5,0.5])
+                    with col1:
+                        time = st.number_input("Mile Time (minutes)", value=0.00)
+                    with col2:
+                        date = st.date_input("Date")
+                    if st.form_submit_button('Submit Time',
+                            type="primary",
+                            use_container_width=True):
+                        if time > 0:
+                            add_time(row['id'], f"{row['first']}_{row['last']}", time, date)
+                        else:
+                            st.toast("Enter a number greater than 0")
+    
+    # display running_leaderboard table as expandable items for players with no time entered
+    for row in running_leaderboard.data:
+        if row['mile_time'] == 0:
+            with st.expander(f"{row['first']} {row['last']} : {row['mile_time']}", expanded=False):
+                with st.form(f"{row['first']}_{row['last']}_time", clear_on_submit=True, border=False):
+                    col1, col2 = st.columns([0.5,0.5])
+                    with col1:
+                        time = st.number_input("Mile Time (minutes)", value=0.00)
+                    with col2:
+                        date = st.date_input("Date")
+                    if st.form_submit_button('Submit Time',
+                            type="primary",
+                            use_container_width=True):
+                        if time > 0:
+                            add_time(row['id'], f"{row['first']}_{row['last']}", time, date)
+                        else:
+                            st.toast("Enter a number greater than 0")
