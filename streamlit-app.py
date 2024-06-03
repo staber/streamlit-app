@@ -6,7 +6,7 @@ st.set_page_config(page_title="LCFH 2011", page_icon="https://raw.githubusercont
 
 # Add row to player table
 def add_shots(id, name, shots, date):
-   st.toast(str(id) + ": Add " + str(shots) + " shots for " + str(name) + " on " + date.strftime("%Y-%m-%d"))
+   #st.toast(str(id) + ": Add " + str(shots) + " shots for " + str(name) + " on " + date.strftime("%Y-%m-%d"))
    execute_query(conn.table(name).insert(
        [{"activity_date": date.strftime("%Y-%m-%d"), "shots": shots}], count="None"
    ), ttl=0,)
@@ -18,13 +18,13 @@ def update_total_shots(id, player):
     player_table = execute_query(conn.table(player).select("*"), ttl=0)
     for row in player_table.data:
         shots = shots + row['shots']
-    st.toast(player + " has " + str(shots) + " shots total.")
+    #st.toast(player + " has " + str(shots) + " shots total.")
     execute_query(conn.table("players").update({"shots": shots}, count="None").eq("id", id), ttl=0)
     st.rerun()
 
 # Add row to player table
 def add_time(id, name, time, date):
-   st.toast(str(id) + ": Add " + str(time) + " time for " + str(name) + " on " + date.strftime("%Y-%m-%d"))
+   #st.toast(str(id) + ": Add " + str(time) + " time for " + str(name) + " on " + date.strftime("%Y-%m-%d"))
    execute_query(conn.table(name).insert(
        [{"activity_date": date.strftime("%Y-%m-%d"), "mile_time": time}], count="None"
    ), ttl=0,)
@@ -37,7 +37,7 @@ def update_best_time(id, player):
     for row in player_table.data:
         if row['mile_time'] < time:
             time = row['mile_time']
-    st.toast(player + " has a best mile time of: " + str(time))
+    #st.toast(player + " has a best mile time of: " + str(time))
     execute_query(conn.table("players").update({"mile_time": time}, count="None").eq("id", id), ttl=0)
     st.rerun()
 
