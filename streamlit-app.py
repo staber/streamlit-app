@@ -210,3 +210,6 @@ with tab4:
     player_time_table = execute_query(conn.table(player).select("*").gt("mile_time", 0), ttl=0)
 
     st.dataframe(player_shot_table.data, use_container_width=True)
+    st.line_chart(player_shot_table.data)
+
+    st.line_chart(player_time_table.data)
