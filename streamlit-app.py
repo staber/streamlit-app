@@ -118,7 +118,7 @@ recover = '''
 shooting_leaderboard = execute_query(conn.table("players").select("*").order("shots", desc=True), ttl=0)
 
 # Setup Main Page
-tab1, tab2, tab3, tab4 = st.tabs(["📅 Schedule", "🏒 Shots", "🏃 Running", "Data"])
+tab1, tab2, tab3, tab4 = st.tabs(["📅 Schedule", "🏒 Shots", "🏃 Running", "📈 Data"])
 
 # Schedule Tab
 with tab1:
@@ -212,6 +212,8 @@ with tab4:
         placeholder="Select a player...",
         )
     
+    st.divider()
+
     if player != None:
         player_shot_table = execute_query(conn.table(player).select("*").gt("shots", 0), ttl=0)
         player_time_table = execute_query(conn.table(player).select("*").gt("mile_time", 0), ttl=0)
