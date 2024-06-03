@@ -22,6 +22,25 @@ def update_total_shots(id, player):
     execute_query(conn.table("players").update({"shots": shots}, count="None").eq("id", id), ttl=0)
     st.rerun()
 
+# Add row to player table
+def add_time(id, name, time, date):
+   st.toast(str(id) + ": Add " + str(time) + " time for " + str(name) + " on " + date.strftime("%Y-%m-%d"))
+   execute_query(conn.table(name).insert(
+       [{"activity_date": date.strftime("%Y-%m-%d"), "mile_time": time}], count="None"
+   ), ttl=0,)
+   update_best_time(id, name)
+
+# Update the team table to show the newly updated player mile time
+def update_best_time(id, player):
+    time = 1000
+    player_table = execute_query(conn.table(player).select("*").gt("mile_time", 0), ttl=0)
+    for row in player_table.data:
+        if row['mile_time'] < time:
+            time = row['mile_time']
+    st.toast(player + " has a best mile time of: " + str(time))
+    execute_query(conn.table("players").update({"mile_time": time}, count="None").eq("id", id), ttl=0)
+    st.rerun()
+
 # Initialize connection.
 conn = st.connection(
     name="supabase",
@@ -97,6 +116,7 @@ recover = '''
 
 # Perform query.
 shooting_leaderboard = execute_query(conn.table("players").select("*").order("shots", desc=True), ttl=0)
+running_leaderboard = execute_query(conn.table("players").select("*").order("mile_time", desc=False), ttl=0)
 
 # Setup Main Page
 tab1, tab2, tab3 = st.tabs(["📅 Schedule", "🏒 Shots", "🏃 Running"])
@@ -144,3 +164,20 @@ with tab2:
 # Running Leaderboard Tab
 with tab3:
     st.header("Mile Time Leaderboard")
+
+    # display running_leaderboard table as expandable items
+    for row in running_leaderboard.data:
+        with st.expander(f"{row['first']} {row['last']} : {row['mile_time']}", expanded=False):
+            with st.form(f"{row['first']}_{row['last']}", clear_on_submit=True, border=False):
+                col1, col2 = st.columns([0.5,0.5])
+                with col1:
+                    time = st.number_input("Mile Time (minutes)", value=0)
+                with col2:
+                    date = st.date_input("Date")
+                if st.form_submit_button('Submit Time',
+                        type="primary",
+                        use_container_width=True):
+                    if time > 0:
+                        add_time(row['id'], f"{row['first']}_{row['last']}", time, date)
+                    else:
+                        st.toast("Enter a number greater than 0")
