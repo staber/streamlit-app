@@ -40,10 +40,32 @@ st.markdown(hide_img_fs, unsafe_allow_html=True)
 shooting_leaderboard = execute_query(conn.table("players").select("*").order("shots", desc=True), ttl=0)
 
 # Setup Main Page
-tab1, tab2 = st.tabs(["🏒 Shots", "🏃 Running"])
+tab1, tab2, tab3 = st.tabs(["📅 Schedule", "🏒 Shots", "🏃 Running"])
+
+# Schedule Tab
+with tab1:
+    st.header("Daily Schedule")
+
+    with st.expander("Monday: (Strength Training + Hockey Shots)", expanded=False):
+        st.markdown('''
+            **Warm-up:**
+            - 5-10 minutes of dynamic stretching or light jogging.
+
+            **Strength Training:**
+            - Push-ups: 3 sets of 12-15 repetitions.
+            - Bodyweight Squats: 3 sets of 15-20 repetitions.
+            - Lunges: 3 sets of 12-15 repetitions per leg.
+            - Planks: 3 sets of 30-60 seconds.
+
+            **Hockey Shots:**
+            - 100-150 shots on goal, focusing on different types of shots (wrist shots, slap shots, backhands).
+            - Break down the shots into sets (e.g., 5 sets of 20-30 shots) with rest in between.
+
+            **Cool-down:**
+            - 5-10 minutes of static stretching focusing on the muscles used.''', unsafe_allow_html=False)
 
 # Shooting Leaderboard Tab
-with tab1:
+with tab2:
     st.header("Shooting Leaderboard")
 
     # Print results.
@@ -71,5 +93,5 @@ with tab1:
         # st.markdown(f"[![Click me]({row['avatar']})](https://streamlit.io)")
 
 # Running Leaderboard Tab
-with tab2:
+with tab3:
     st.header("Mile Time Leaderboard")
