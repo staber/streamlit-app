@@ -5,7 +5,7 @@ from st_supabase_connection import SupabaseConnection, execute_query
 def add_shots(id, name, shots, date):
    st.toast(str(id) + ": Add " + str(shots) + " shots for " + str(name) + " on " + date.strftime("%Y-%m-%d"))
    execute_query(conn.table(name).insert(
-       [{"submitted_on": date.strftime("%Y-%m-%d"), "shots": shots}], count="None"
+       [{"activity_date": date.strftime("%Y-%m-%d"), "shots": shots}], count="None"
    ), ttl=0,)
    update_total_shots(id, name)
 
