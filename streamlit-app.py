@@ -41,6 +41,13 @@ def update_best_time(id, player):
     execute_query(conn.table("players").update({"mile_time": time}, count="None").eq("id", id), ttl=0)
     st.rerun()
 
+# Returns a list of players from the main database table
+def getPlayerList():
+    output = []
+    for row in shooting_leaderboard.data:
+        output.append(f"{row['first']}_{row['last']}")
+    return output
+
 # Initialize connection.
 conn = st.connection(
     name="supabase",
@@ -207,7 +214,7 @@ with tab4:
 
     player = st.selectbox(
         "Select a player to view their stats",
-        ("Carter_Staber", "Ethan_LaPere"),
+        (getPlayerList()),
         index=None,
         placeholder="Select a player...",
         )
@@ -220,8 +227,8 @@ with tab4:
 
         # st.dataframe(player_shot_table.data, use_container_width=True)
         
-        st.bar_chart(data=player_shot_table.data, x="activity_date", y="shots", color=None, width=None, height=None, use_container_width=True)
+        st.bar_chart(data=player_shot_table.data, x="activity_date", y="shots", use_container_width=True)
         
         st.divider()
         
-        st.line_chart(data=player_time_table.data, x="activity_date", y="mile_time", color=None, width=None, height=None, use_container_width=True)
+        st.line_chart(data=player_time_table.data, x="activity_date", y="mile_time", use_container_width=True)
