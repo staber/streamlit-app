@@ -150,8 +150,11 @@ with tab1:
 with tab2:
     st.header("Shooting Leaderboard")
 
+    total_team_shots = 0
+
     # display shooting_leaderboard table as expandable items
     for row in shooting_leaderboard.data:
+        total_team_shots = total_team_shots + row['shots']
         with st.expander(f"{row['first']} {row['last']} : {row['shots']}", expanded=False):
             with st.form(f"{row['first']}_{row['last']}_shots", clear_on_submit=True, border=False):
                 col1, col2 = st.columns([0.5,0.5])
@@ -166,6 +169,9 @@ with tab2:
                         add_shots(row['id'], f"{row['first']}_{row['last']}", shots, date)
                     else:
                         st.toast("Enter a number greater than 0")
+    
+    st.divider()
+    st.write("Team Total: " + str(total_team_shots))
 
 # Running Leaderboard Tab
 with tab3:
