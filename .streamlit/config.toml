@@ -1,2 +1,4 @@
 [theme]
-base="light"
+base="dark"
+primaryColor="#ff671b"
+font="sans serif"
